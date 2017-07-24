@@ -4,21 +4,26 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Customer {
-    private String name;
-    private int id;
+  private String name;
+  private int table_id;
+  private int id;
 
-  public Customer(String name) {
+  public Customer(String name, int table_id) {
     this.name = name;
-  }
-
-  public String getName() {
-    return name;
+    this.table_id = table_id;
   }
 
   public int getId() {
     return id;
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public int getTableId() {
+    return table_id;
+  }
   @Override
   public boolean equals(Object otherCustomer){
     if (!(otherCustomer instanceof Customer)) {
@@ -31,9 +36,10 @@ public class Customer {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO customers (name) VALUES (:name)";
+      String sql = "INSERT INTO customers (name, table_id) VALUES (:name, :table_id)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
+        .addParameter("table_id", this.table_id)
         .executeUpdate()
         .getKey();
     }

@@ -1,0 +1,7 @@
+<a href="/">Home</a>
+
+<h3>$table.getName()'s Guests</h3>
+
+#foreach($customer in $table.getCustomers())
+  <h3><a href ="/table/$table.getId()/customer/$customer.getId()">$customer.getName()</a></h3>
+#end

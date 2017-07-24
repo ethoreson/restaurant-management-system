@@ -14,7 +14,7 @@
 
   #if($tables.size() > 0)
     #foreach($table in $tables)
-      <h3>$table.getName()</h3>
+      <h3><a href ="/table/$table.getId()">$table.getName()</a></h3>
     #end
   #end
 </form>

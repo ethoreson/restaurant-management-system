@@ -26,34 +26,49 @@ public class App {
       model.put("name", tableName);
       model.put("guestCount", guestCount);
       model.put("tables", Table.all());
+      for (int i = 1; i <= guestCount; i++) {
+        String custName = String.format("customer%d", i);
+        Customer customer = new Customer(custName, newTable.getId());
+        customer.save();
+      }
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-
-    get("/customer/:id", (request, response) -> {
+    get("/table/:id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      Customer customer = new Customer.find(request.params("id"));
+      Table table = Table.find(Integer.parseInt(request.params("id")));
+      model.put("table", table);
+      model.put("template", "templates/table.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+
+    get("/table/:table_id/customer/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Integer tableId = Integer.parseInt(request.params("table_id"));
+      Customer customer = Customer.find(Integer.parseInt(request.params("id")));
       model.put("customer", customer);
       model.put("template", "templates/customer.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+    //
+    // post("/menu", (request, response) -> {
+    //   Map<String, Object> model = new HashMap<String, Object>();
+    //   String name = request.queryParams("name");
+    //   Float price = Float.parseFloat(request.queryParams("price"));
+    //   Meal meal = new Meal(name, price);
+    //   response.redirect("/menu");
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
+    //
+    // get("/menu", (request, response) -> {
+    //   Map<String, Object> model = new HashMap<String, Object>();
+    //   //try/catch
+    //   List<Meal> menu = Meal.all();
+    //   model.put("menu", menu);
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
 
-    post("/menu", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      String name = request.queryParams("name");
-      Float price = Float.parseFloat(request.queryParams("price"));
-      Meal meal = new Meal(name, price);
-      response.redirect("/menu");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-
-    get("/menu", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      //try/catch
-      List<Meal> menu = Meal.all();
-      model.put("menu", menu);
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
   }
 }
