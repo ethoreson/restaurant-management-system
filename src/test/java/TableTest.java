@@ -1,6 +1,7 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.sql2o.*;
+import java.util.Arrays;
 
 public class TableTest {
 
@@ -58,5 +59,17 @@ public class TableTest {
     Table secondTable = new Table("Table B", 3);
     secondTable.save();
     assertEquals(Table.find(secondTable.getId()), secondTable);
+  }
+
+  @Test
+  public void getCustomers_retrievesAllCustomersFromDatabase_customersList() {
+    Table testTable = new Table("Henry's Table", 5);
+    testTable.save();
+    Customer firstCustomer = new Customer("Bubbles", testTable.getId());
+    firstCustomer.save();
+    Customer secondCustomer = new Customer("Spud", testTable.getId());
+    secondCustomer.save();
+    Customer[] customers = new Customer[] { firstCustomer, secondCustomer };
+    assertTrue(testTable.getCustomers().containsAll(Arrays.asList(customers)));
   }
 }

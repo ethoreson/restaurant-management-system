@@ -64,4 +64,13 @@ public class Table {
     }
   }
 
+  public List<Customer> getCustomers() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM customers where table_id=:id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Customer.class);
+    }
+  }
+
 }
