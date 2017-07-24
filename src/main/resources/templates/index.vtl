@@ -1,0 +1,20 @@
+
+<a href="/">Home</a>
+
+<h1>Restaurant Management System</h1>
+<h3> Add a Table</h3>
+
+<form action="/tables" method="post">
+  <label for="name">Table Name</label>
+  <input id="name" name="name" type="text">
+  <label for="guestCount">Number of Guests</label>
+  <input id="guestCount" name="guestCount" type="text">
+
+  <button type="submit" class="btn btn-default">Add Table</button>
+
+  #if($tables.size() > 0)
+    #foreach($table in $tables)
+      <h3>$table.getName()</h3>
+    #end
+  #end
+</form>
