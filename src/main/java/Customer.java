@@ -49,10 +49,10 @@ public class Customer {
   public static Customer find(int id) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM customers where id=:id";
-      Customer meal = con.createQuery(sql)
+      Customer customer = con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Customer.class);
-      return meal;
+      return customer;
     }
   }
 

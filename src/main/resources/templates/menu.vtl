@@ -1,0 +1,13 @@
+<h1>Menu</h1>
+<ul>
+  #foreach ($item in $menu)
+    <li>$item.getName() - $item.getPrice()</li>
+  #end
+</ul>
+<form action="/menu" method="post">
+  <label for="name">Meal:</label>
+  <input id="name" name="name">
+  <label for="price">Price:</label>
+  <input id="price" name="price">
+  <button type="submit" class="btn btn-success">Add New Meal</button>
+</form>
