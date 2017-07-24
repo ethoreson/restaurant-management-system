@@ -11,14 +11,16 @@ public class DatabaseRule extends ExternalResource {
   @Override
   protected void after() {
     try(Connection con = DB.sql2o.open()) {
-      // String deleteCustomersQuery = "DELETE FROM customers *;";
-      // String deleteMealsQuery = "DELETE FROM meals *;";
-      // String deleteReceiptsQuery = "DELETE FROM receipts *;";
+      String deleteCustomersQuery = "DELETE FROM customers *;";
       String deleteTablesQuery = "DELETE FROM tables *;";
-      // con.createQuery(deleteCustomersQuery).executeUpdate();
-      // con.createQuery(deleteMealsQuery).executeUpdate();
-      // con.createQuery(deleteReceiptsQuery).executeUpdate();
+      String deleteReceiptsQuery = "DELETE FROM receipts *;";
+      String deleteMealsQuery = "DELETE FROM meals *;";
+      String deleteJoinsQuery = "DELETE FROM customers_meals *;";
+      con.createQuery(deleteCustomersQuery).executeUpdate();
       con.createQuery(deleteTablesQuery).executeUpdate();
+      con.createQuery(deleteReceiptsQuery).executeUpdate();
+      con.createQuery(deleteMealsQuery).executeUpdate();
+      con.createQuery(deleteJoinsQuery).executeUpdate();
     }
   }
 }
