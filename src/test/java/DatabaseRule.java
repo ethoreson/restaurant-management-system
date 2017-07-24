@@ -23,5 +23,4 @@ public class DatabaseRule extends ExternalResource {
       con.createQuery(deleteJoinsQuery).executeUpdate();
     }
   }
-
 }

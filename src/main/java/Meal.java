@@ -1,4 +1,5 @@
 import org.sql2o.*;
+<<<<<<< HEAD
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
@@ -71,5 +72,4 @@ public class Meal {
       return customers;
     }
   }
-
 }
