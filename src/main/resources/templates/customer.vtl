@@ -1,12 +1,19 @@
 <!-- customer.vtl -->
 
 <h1>$customer.getName()</h1>
-<h2>Bill:</h2>
-#foreach ($meal in $customer.getMeals())
-  <h3>$meal.getName() - $meal.getPrice()</h3>
+
+#if ($customer.getMeals().size() > 0)
+<!--
+  <h2>Bill:</h2>
+  #foreach ($meal in $customer.getMeals())
+    <h3>$meal.getName() - $meal.getPrice()</h3>
+  #end
+-->
+  <h2>Add to Order:</h2>
+  <form action="/customer" method="post">
+    <input id="addToOrder" name="addToOrder" value="$meal.getId()">
+    <button type="submit" class="btn btn-info">Add to Meal</button>
+  </form>
+#else
+    <h2>Add a Meal</h2>
 #end
-<h2>Add to Order:</h2>
-<form action="/customer" method="post">
-  <input id="addToOrder" name="addToOrder" value="$meal.getId()">
-  <button type="submit" class="btn btn-info">Add to Meal</button>
-</form>
