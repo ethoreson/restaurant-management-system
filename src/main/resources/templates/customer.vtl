@@ -1,18 +1,22 @@
 <!-- customer.vtl -->
 
 <h1>$customer.getName()</h1>
+<hr>
 
-<!--
   <h2>Bill:</h2>
   #foreach ($meal in $customer.getMeals())
     <h3>$meal.getName() - $meal.getPrice()</h3>
   #end
--->
+
+
   <h2>Add a Meal</h2>
 
+  <form action="/table/$table.getId()/customer/$customer.getId()/addMeal" method="post">
     <label>Select Meal</label>
     <select name="mealSelected">
       #foreach($meal in $meals)
         <option value="$meal.getId()">$meal.getName()</option>
       #end
     </select>
+    <button type="submit">Place Order</button>
+  </form>

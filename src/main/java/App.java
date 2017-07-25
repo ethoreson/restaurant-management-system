@@ -49,8 +49,10 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       Integer tableId = Integer.parseInt(request.params("table_id"));
       Customer customer = Customer.find(Integer.parseInt(request.params("id")));
+      Table table = Table.find(Integer.parseInt(request.params("table_id")));
       List<Meal> menu = Meal.all();
       model.put("meals", menu);
+      model.put("table", table);
       model.put("customer", customer);
       model.put("template", "templates/customer.vtl");
       return new ModelAndView(model, layout);
@@ -110,6 +112,18 @@ public class App {
       Meal meal = Meal.find(Integer.parseInt(request.params("id")));
       meal.delete();
       response.redirect("/menu");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/table/:table_id/customer/:id/addMeal", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Table table = Table.find(Integer.parseInt(request.params("table_id")));
+      Customer customer = Customer.find(Integer.parseInt(request.params("id")));
+      model.put("customer", customer);
+      Meal meal = Meal.find(Integer.parseInt(request.queryParams("mealSelected")));
+      customer.addMeal(meal);
+      String url = String.format("/table/%d/customer/%d", table.getId(), customer.getId());
+      response.redirect(url);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
