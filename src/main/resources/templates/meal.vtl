@@ -1,0 +1,14 @@
+<h1>$meal.getName() - $meal.getPrice()</h1>
+
+<h3>Update Menu Item:</h3>
+<form action="/menu/$meal.getId()/update" method="post">
+  <label for="name">Name</label>
+  <input id="name" name="name" type="text">
+  <label for="price">Price</label>
+  <input id="price" name="price" type="text">
+  <button type="submit" class="btn btn-info">Update Meal</button>
+</form>
+
+<form action="/menu/$meal.getId()/delete" method="post">
+  <button type="submit" class="btn btn-danger" id="delete-meal">Delete Meal</button>
+</form>

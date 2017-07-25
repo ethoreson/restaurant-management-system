@@ -1,9 +1,11 @@
 <h1>Menu</h1>
 <ul>
   #foreach ($item in $menu)
-    <li>$item.getName() - $item.getPrice()</li>
+    <li><a href="/menu/$item.getId()">$item.getName()</a> - $item.getPrice()</li>
   #end
 </ul>
+
+<h2>Add New Meal:</h2>
 <form action="/menu/new" method="post">
   <label for="name">Meal:</label>
   <input id="name" name="name">
