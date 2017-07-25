@@ -49,6 +49,8 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       Integer tableId = Integer.parseInt(request.params("table_id"));
       Customer customer = Customer.find(Integer.parseInt(request.params("id")));
+      List<Meal> menu = Meal.all();
+      model.put("meals", menu);
       model.put("customer", customer);
       model.put("template", "templates/customer.vtl");
       return new ModelAndView(model, layout);
@@ -72,6 +74,53 @@ public class App {
       model.put("template", "templates/menu.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    get("/menu/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Meal meal = Meal.find(Integer.parseInt(request.params("id")));
+      model.put("meal", meal);
+      model.put("template", "templates/meal.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/menu/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Meal meal = Meal.find(Integer.parseInt(request.params("id")));
+      String name = request.queryParams("name");
+      Float price = Float.parseFloat(request.queryParams("price"));
+      meal.update(name, price);
+      meal.save();
+      model.put("template", "templates/menu.vtl");
+      response.redirect("/menu");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/menu/:id/update", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Meal meal = Meal.find(Integer.parseInt(request.params("id")));
+      String name = request.queryParams("name");
+      Float price = Float.parseFloat(request.queryParams("price"));
+      meal.update(name, price);
+      response.redirect("/menu");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/menu/:id/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Meal meal = Meal.find(Integer.parseInt(request.params("id")));
+      meal.delete();
+      response.redirect("/menu");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    // post("/table/:id/delete", (request, response) -> {
+    //   HashMap<String, Object> model = new HashMap<String, Object>();
+    //   Table table = Table.find(Integer.parseInt(request.params("id")));
+    //   table.delete();
+    //   response.redirect("/");
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
+
 
   }
 }

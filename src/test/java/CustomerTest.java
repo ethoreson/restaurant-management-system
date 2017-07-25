@@ -12,7 +12,7 @@ public class CustomerTest {
 
   @Test
   public void addMeal_addsMealToCustomer() {
-    Customer testCustomer = new Customer("Customer 1");
+    Customer testCustomer = new Customer("Customer 1", 1);
     testCustomer.save();
     Meal testMeal = new Meal("Chicken", 6.75f);
     testMeal.save();
@@ -23,7 +23,7 @@ public class CustomerTest {
 
   @Test
   public void getMeals_returnsAllMeals_List() {
-    Customer testCustomer = new Customer("Customer 1");
+    Customer testCustomer = new Customer("Customer 1", 1);
     testCustomer.save();
     Meal testMeal = new Meal("Chicken", 6.75f);
     testMeal.save();
