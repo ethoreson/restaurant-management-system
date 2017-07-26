@@ -1,7 +1,24 @@
-<a href="/">Home</a>
+<div class="row">
+  <div class="col-md-6">
+    <h3>$table.getName()'s Guests</h3>
 
-<h3>$table.getName()'s Guests</h3>
+    #foreach($customer in $table.getCustomers())
+      <h3><a href ="/table/$table.getId()/customer/$customer.getId()">$customer.getName()</a></h3>
+    #end
+  </div>
+  <div class="col-md-6">
+    <h3>Seperate Checks:</h3>
+    <form action="/table/$table.getId()/splitCheck" method="post">
+      <label>Select Customer</label>
+      <select name="customerSelected">
+        #foreach($customer in $table.getCustomers())
+          <option value="$customer.getId()">$customer.getName()</option>
+        #end
+      </select>
+      <button type="submit">Add to check</button>
+    </form>
+    
+  </div>
 
-#foreach($customer in $table.getCustomers())
-  <h3><a href ="/table/$table.getId()/customer/$customer.getId()">$customer.getName()</a></h3>
-#end
+
+</div>
