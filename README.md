@@ -2,7 +2,7 @@
 
 * _CREATE DATABASE restaurant_management_system;_
 * _\c restaurant_management_system;_
-* _CREATE TABLE customers (id serial PRIMARY KEY, table_id int, name varchar);_
+* _CREATE TABLE customers (id serial PRIMARY KEY, table_id int, name varchar, total float);_
 * _CREATE TABLE meals (id serial PRIMARY KEY, name varchar, price float);_
 * _CREATE TABLE tables (id serial PRIMARY KEY, name varchar, guestcount int);_
 * _CREATE TABLE receipts (id serial PRIMARY KEY, meal_total float, tableid int, name varchar);_

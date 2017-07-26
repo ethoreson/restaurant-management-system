@@ -28,7 +28,7 @@ public class App {
       model.put("guestCount", guestCount);
       model.put("tables", Table.all());
       for (int i = 1; i <= guestCount; i++) {
-        String custName = String.format("customer%d", i);
+        String custName = String.format("Customer %d", i);
         Customer customer = new Customer(custName, newTable.getId());
         customer.save();
       }

@@ -7,6 +7,7 @@ public class Customer {
   private String name;
   private int table_id;
   private int id;
+  private Float total = 0f;
 
   public Customer(String name, int table_id) {
     this.name = name;
@@ -17,6 +18,10 @@ public class Customer {
     return id;
   }
 
+  public Float getTotal() {
+    return total;
+  }
+
   public String getName() {
     return name;
   }
@@ -24,6 +29,11 @@ public class Customer {
   public int getTableId() {
     return table_id;
   }
+
+  public String displayTwoDecimals() {
+    return String.format("%.2f", total);
+  }
+
   @Override
   public boolean equals(Object otherCustomer){
     if (!(otherCustomer instanceof Customer)) {
@@ -36,10 +46,11 @@ public class Customer {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO customers (name, table_id) VALUES (:name, :table_id)";
+      String sql = "INSERT INTO customers (name, table_id, total) VALUES (:name, :table_id, :total)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
         .addParameter("table_id", this.table_id)
+        .addParameter("total", 0f)
         .executeUpdate()
         .getKey();
     }
@@ -63,11 +74,18 @@ public class Customer {
   }
 
   public void addMeal(Meal meal) {
+    this.total += meal.getPrice();
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO customers_meals (customer_id, meal_id) VALUES (:customer_id, :meal_id)";
       con.createQuery(sql)
       .addParameter("customer_id", this.getId())
       .addParameter("meal_id", meal.getId())
+      .executeUpdate();
+
+      String updatePriceSql = "UPDATE customers SET total = :total WHERE id = :id;";
+      con.createQuery(updatePriceSql)
+      .addParameter("total", this.total)
+      .addParameter("id", this.id)
       .executeUpdate();
     }
   }

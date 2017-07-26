@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Receipt {
-  private Float meal_total;
+  private Float meal_total = 0f;
   private int id;
   private int tableId;
   private String name;
@@ -27,6 +27,10 @@ public class Receipt {
 
   public int getId() {
     return id;
+  }
+
+  public String displayTwoDecimals() {
+    return String.format("%.2f", meal_total);
   }
 
   @Override
@@ -69,11 +73,18 @@ public class Receipt {
   }
 
   public void addCustomer(Customer customer) {
+    this.meal_total += customer.getTotal();
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO customers_receipts (customer_id, receipt_id) VALUES (:customer_id, :receipt_id);";
       con.createQuery(sql)
       .addParameter("customer_id", customer.getId())
       .addParameter("receipt_id", this.getId())
+      .executeUpdate();
+
+      String updateMealTotalSql = "UPDATE receipts SET meal_total = :meal_total WHERE id = :id;";
+      con.createQuery(updateMealTotalSql)
+      .addParameter("meal_total", this.meal_total)
+      .addParameter("id", this.id)
       .executeUpdate();
     }
   }

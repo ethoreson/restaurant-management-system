@@ -30,8 +30,9 @@
     #foreach($receipt in $table.getReceipts())
       <h4>$receipt.getName()</h4>
       #foreach($customer in $receipt.getCustomers())
-        <h6>$customer.getName()</h6>
+        <h6>$customer.getName() - &#36;$customer.displayTwoDecimals()</h6>
       #end
+      <h5>Total = &#36;$receipt.displayTwoDecimals()</h5>
     #end
 
   </div>
