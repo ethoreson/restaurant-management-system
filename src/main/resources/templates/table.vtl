@@ -3,7 +3,9 @@
     <h3>$table.getName()'s Guests</h3>
 
     #foreach($customer in $table.getCustomers())
-      <h3><a href ="/table/$table.getId()/customer/$customer.getId()">$customer.getName()</a></h3>
+      #if ($customer.hasReceipt == false)
+        <h3><a href ="/table/$table.getId()/customer/$customer.getId()">$customer.getName()</a></h3>
+      #end
     #end
   </div>
   <div class="col-md-6">

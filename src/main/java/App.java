@@ -131,8 +131,14 @@ public class App {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Table table = Table.find(Integer.parseInt(request.params("table_id")));
       Customer customer = Customer.find(Integer.parseInt(request.queryParams("customerSelected")));
-      Receipt receipt = Receipt.find(Integer.parseInt(request.queryParams("receiptSelected")));
-      receipt.addCustomer(customer);
+      try {
+        Receipt receipt = Receipt.find(Integer.parseInt(request.queryParams("receiptSelected")));
+        receipt.addCustomer(customer);
+      } catch (NumberFormatException e) {
+        System.out.println("got inside catch");
+        String url = String.format("/table/%d/error", table.getId());
+        response.redirect(url);
+      }
       String url = String.format("/table/%d", table.getId());
       response.redirect(url);
       return new ModelAndView(model, layout);
@@ -153,6 +159,15 @@ public class App {
       model.put("template", "templates/aboutus.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    get("/table/:table_id/error", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/error.vtl");
+      Table table = Table.find(Integer.parseInt(request.params("table_id")));
+      model.put("table", table);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
 
     // post("/table/:id/delete", (request, response) -> {
     //   HashMap<String, Object> model = new HashMap<String, Object>();
