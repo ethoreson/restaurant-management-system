@@ -1,0 +1,32 @@
+body {
+  background: url('https://images7.alphacoders.com/688/thumb-1920-688462.jpg') no-repeat top right fixed;
+}
+
+a {
+  text-shadow: 1px 1px 2px black, 0 0 1em yellow, 0 0 0.2em yellow;
+  color: white;
+  font: 1.5em Georgia, serif;
+}
+
+label {
+  text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+  color: white;
+  font: 1.5em Georgia, serif;
+}
+
+.red {
+  text-shadow: 1px 1px 2px black, 0 0 1em red, 0 0 0.2em red;
+  color: red;
+  font: 1.5em Georgia, serif;
+  padding-right: 30px;
+}
+
+h1 {
+  font-family: 'Playball', cursive;
+  font-size: 55px;
+}
+
+h2 {
+  font-family: 'Playball', cursive;
+  font-size: 35px;
+}
