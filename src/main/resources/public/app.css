@@ -26,18 +26,30 @@ label {
   padding-right: 30px;
 }
 
-h1 {
+.blue-red {
+  text-shadow: 1px 1px 2px black, 0 0 1em red, 0 0 0.2em red;
+  color: blue;
+  font: 1.5em Georgia, serif;
+  padding-right: 30px;
+}
+
+h1, .playball {
   font-family: 'Playball', cursive;
   font-size: 55px;
 }
 
-h2 {
+h2, h4 {
   font-family: 'Playball', cursive;
   font-size: 35px;
 }
 
 .yellow {
   text-shadow: 1px 1px 2px black, 0 0 1em yellow, 0 0 0.2em yellow;
+  color: white;
+  font: 1.5em Georgia, serif;
+}
+.white-red {
+  text-shadow: 1px 1px 2px black, 0 0 1em red, 0 0 0.2em red;
   color: white;
   font: 1.5em Georgia, serif;
 }
