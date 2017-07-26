@@ -1,5 +1,10 @@
 body {
-  background: url('https://images7.alphacoders.com/688/thumb-1920-688462.jpg') no-repeat top right fixed;
+  background: url('https://images7.alphacoders.com/688/thumb-1920-688462.jpg') no-repeat top right;
+  background-size: cover;
+}
+
+.container {
+  background-color: rgba(230, 230, 230, 0.6);
 }
 
 a {
