@@ -36,6 +36,8 @@ h2 {
   font-size: 35px;
 }
 
-.receipt {
-  font-family: 48px;
+.yellow {
+  text-shadow: 1px 1px 2px black, 0 0 1em yellow, 0 0 0.2em yellow;
+  color: white;
+  font: 1.5em Georgia, serif;
 }
