@@ -5,10 +5,11 @@
 
   <h2>Bill:</h2>
   #foreach ($meal in $customer.getMeals())
+
     <h3>$meal.getName() - $meal.displayTwoDecimals()</h3>
   #end
 
-
+  <button type="submit">Calculate Total</button>
   <h2>Add a Meal</h2>
 
   <form action="/table/$table.getId()/customer/$customer.getId()/addMeal" method="post">
