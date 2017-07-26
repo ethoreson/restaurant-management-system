@@ -127,6 +127,27 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    post("/table/:table_id/splitCheck", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Table table = Table.find(Integer.parseInt(request.params("table_id")));
+      Customer customer = Customer.find(Integer.parseInt(request.queryParams("customerSelected")));
+      Receipt receipt = Receipt.find(Integer.parseInt(request.queryParams("receiptSelected")));
+      receipt.addCustomer(customer);
+      String url = String.format("/table/%d", table.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/table/:table_id/addReceipt", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Table table = Table.find(Integer.parseInt(request.params("table_id")));
+      Receipt newReceipt = new Receipt(table.getId(), "Receipt " + (table.getReceipts().size() + 1));
+      newReceipt.save();
+      String url = String.format("/table/%d", table.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     // post("/table/:id/delete", (request, response) -> {
     //   HashMap<String, Object> model = new HashMap<String, Object>();
     //   Table table = Table.find(Integer.parseInt(request.params("id")));

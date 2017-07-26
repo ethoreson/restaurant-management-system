@@ -5,9 +5,20 @@ import java.util.List;
 public class Receipt {
   private Float meal_total;
   private int id;
+  private int tableId;
+  private String name;
 
-  public Receipt(Float meal_total) {
-    this.meal_total = meal_total;
+  public Receipt(int tableId, String name) {
+    this.tableId = tableId;
+    this.name = name;
+  }
+
+  public int getTableId() {
+    return tableId;
+  }
+
+  public String getName() {
+    return name;
   }
 
   public Float getMealTotal() {
@@ -30,9 +41,11 @@ public class Receipt {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO receipts (meal_total) VALUES (:meal_total)";
+      String sql = "INSERT INTO receipts (meal_total, tableid, name) VALUES (:meal_total, :tableid, :name)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("meal_total", this.meal_total)
+        .addParameter("tableid", this.tableId)
+        .addParameter("name", this.name)
         .executeUpdate()
         .getKey();
     }
@@ -55,14 +68,33 @@ public class Receipt {
     }
   }
 
-  // public List<Customer> getCustomers() {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "SELECT * FROM customers where table_id=:id";
-  //     return con.createQuery(sql)
-  //       .addParameter("id", this.id)
-  //       .executeAndFetch(Customer.class);
-  //   }
-  // }
+  public void addCustomer(Customer customer) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO customers_receipts (customer_id, receipt_id) VALUES (:customer_id, :receipt_id);";
+      con.createQuery(sql)
+      .addParameter("customer_id", customer.getId())
+      .addParameter("receipt_id", this.getId())
+      .executeUpdate();
+    }
+  }
+
+  public List<Customer> getCustomers() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT customer_id FROM customers_receipts WHERE receipt_id=:id";
+      List<Integer> customerIds = con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Integer.class);
+      List<Customer> customers = new ArrayList<Customer>();
+      for (Integer id : customerIds) {
+        String customerSql = "SELECT * FROM customers WHERE id = :id;";
+        Customer customer = con.createQuery(customerSql)
+          .addParameter("id", id)
+          .executeAndFetchFirst(Customer.class);
+        customers.add(customer);
+      }
+      return customers;
+    }
+  }
 
   public void delete() {
     try(Connection con = DB.sql2o.open()) {

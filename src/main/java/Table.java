@@ -56,7 +56,7 @@ public class Table {
 
   public static Table find(int id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM tables where id=:id";
+      String sql = "SELECT * FROM tables WHERE id=:id;";
       Table table = con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Table.class);
@@ -66,10 +66,19 @@ public class Table {
 
   public List<Customer> getCustomers() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM customers where table_id=:id";
+      String sql = "SELECT * FROM customers WHERE table_id=:id;";
       return con.createQuery(sql)
         .addParameter("id", this.id)
         .executeAndFetch(Customer.class);
+    }
+  }
+
+  public List<Receipt> getReceipts() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM receipts WHERE tableid=:id;";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Receipt.class);
     }
   }
 
