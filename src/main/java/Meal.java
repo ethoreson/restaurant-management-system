@@ -25,6 +25,10 @@ public class Meal {
     return id;
   }
 
+  public String displayTwoDecimals() {
+    return String.format("%.2f", price);
+  }
+
   @Override
   public boolean equals(Object otherMeal){
     if (!(otherMeal instanceof Meal)) {
