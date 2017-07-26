@@ -7,10 +7,13 @@ public class Meal {
   private String name;
   private Float price;
   private int id;
+  private Float total_price = 0.0f;
+  // private int customer_id;
 
   public Meal(String name, Float price){
     this.name = name;
     this.price = price;
+    // this.customer_id = customer_id;
   }
 
   public String getName() {
@@ -21,6 +24,11 @@ public class Meal {
     return price;
   }
 
+  public Float getTotalPrice (Float price) {
+    total_price = total_price + price;
+    return total_price;
+  }
+  
   public int getId() {
     return id;
   }
@@ -100,4 +108,11 @@ public class Meal {
       .executeUpdate();
     }
   }
+
+  // public static int getCustomerMealTotal() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "SELECT SUM (price)" FROM meals where customer_id=:
+  //   }
+  //
+  // }
 }
