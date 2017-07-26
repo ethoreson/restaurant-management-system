@@ -6,7 +6,7 @@
   <h2>Bill:</h2>
   #foreach ($meal in $customer.getMeals())
 
-    <h3>$meal.getName() - $meal.displayTwoDecimals()</h3>
+    <h3>$meal.getName() - &#36;$meal.displayTwoDecimals()</h3>
   #end
 
   <button type="submit">Calculate Total</button>
