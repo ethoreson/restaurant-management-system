@@ -1,5 +1,41 @@
-<h3>$table.getName()'s Guests</h3>
+<div class="row">
+  <div class="col-md-6">
+    <h3>$table.getName()'s Guests</h3>
 
-#foreach($customer in $table.getCustomers())
-  <h3><a href ="/table/$table.getId()/customer/$customer.getId()">$customer.getName()</a></h3>
-#end
+    #foreach($customer in $table.getCustomers())
+      <h3><a href ="/table/$table.getId()/customer/$customer.getId()">$customer.getName()</a></h3>
+    #end
+  </div>
+  <div class="col-md-6">
+    <h3>Seperate Checks:</h3>
+    <form action="/table/$table.getId()/addReceipt" method="post">
+      <button type="submit" class="btn btn-success">Add Receipt</button>
+    </form>
+    <form action="/table/$table.getId()/splitCheck" method="post">
+      <label>Select Receipt</label>
+      <select name="receiptSelected">
+        #foreach($receipt in $table.getReceipts())
+          <option value="$receipt.getId()">$receipt.getName()</option>
+        #end
+      </select>
+      <label>Select Customer</label>
+      <select name="customerSelected">
+        #foreach($customer in $table.getCustomers())
+          <option value="$customer.getId()">$customer.getName()</option>
+        #end
+      </select>
+      <button type="submit">Add to check</button>
+    </form>
+    <hr>
+    #foreach($receipt in $table.getReceipts())
+      <h4>$receipt.getName()</h4>
+      #foreach($customer in $receipt.getCustomers())
+        <h6>$customer.getName() - &#36;$customer.displayTwoDecimals()</h6>
+      #end
+      <h5>Total = &#36;$receipt.displayTwoDecimals()</h5>
+    #end
+
+  </div>
+
+
+</div>

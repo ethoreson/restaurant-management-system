@@ -28,7 +28,7 @@ public class App {
       model.put("guestCount", guestCount);
       model.put("tables", Table.all());
       for (int i = 1; i <= guestCount; i++) {
-        String custName = String.format("customer%d", i);
+        String custName = String.format("Customer %d", i);
         Customer customer = new Customer(custName, newTable.getId());
         customer.save();
       }
@@ -123,6 +123,27 @@ public class App {
       Meal meal = Meal.find(Integer.parseInt(request.queryParams("mealSelected")));
       customer.addMeal(meal);
       String url = String.format("/table/%d/customer/%d", table.getId(), customer.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/table/:table_id/splitCheck", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Table table = Table.find(Integer.parseInt(request.params("table_id")));
+      Customer customer = Customer.find(Integer.parseInt(request.queryParams("customerSelected")));
+      Receipt receipt = Receipt.find(Integer.parseInt(request.queryParams("receiptSelected")));
+      receipt.addCustomer(customer);
+      String url = String.format("/table/%d", table.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/table/:table_id/addReceipt", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Table table = Table.find(Integer.parseInt(request.params("table_id")));
+      Receipt newReceipt = new Receipt(table.getId(), "Receipt " + (table.getReceipts().size() + 1));
+      newReceipt.save();
+      String url = String.format("/table/%d", table.getId());
       response.redirect(url);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
