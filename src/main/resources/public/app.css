@@ -30,3 +30,9 @@ h2 {
   font-family: 'Playball', cursive;
   font-size: 35px;
 }
+
+.yellow {
+  text-shadow: 1px 1px 2px black, 0 0 1em yellow, 0 0 0.2em yellow;
+  color: white;
+  font: 1.5em Georgia, serif;
+}
