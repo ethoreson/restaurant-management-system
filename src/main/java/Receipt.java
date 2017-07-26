@@ -86,6 +86,11 @@ public class Receipt {
       .addParameter("meal_total", this.meal_total)
       .addParameter("id", this.id)
       .executeUpdate();
+
+      String updateCustomerHasReceipt = "UPDATE customers SET hasReceipt = true WHERE id = :id;";
+      con.createQuery(updateCustomerHasReceipt)
+      .addParameter("id", customer.getId())
+      .executeUpdate();
     }
   }
 

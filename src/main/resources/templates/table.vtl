@@ -21,7 +21,9 @@
       <label>Select Customer</label>
       <select name="customerSelected">
         #foreach($customer in $table.getCustomers())
-          <option value="$customer.getId()">$customer.getName()</option>
+          #if ($customer.hasReceipt == false)
+            <option value="$customer.getId()">$customer.getName()</option>
+          #end
         #end
       </select>
       <button type="submit">Add to check</button>

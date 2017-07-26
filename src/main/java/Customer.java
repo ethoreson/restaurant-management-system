@@ -8,6 +8,7 @@ public class Customer {
   private int table_id;
   private int id;
   private Float total = 0f;
+  private Boolean hasReceipt = false;
 
   public Customer(String name, int table_id) {
     this.name = name;
@@ -30,6 +31,10 @@ public class Customer {
     return table_id;
   }
 
+  public Boolean getHasReceipt() {
+    return hasReceipt;
+  }
+
   public String displayTwoDecimals() {
     return String.format("%.2f", total);
   }
@@ -46,11 +51,12 @@ public class Customer {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO customers (name, table_id, total) VALUES (:name, :table_id, :total)";
+      String sql = "INSERT INTO customers (name, table_id, total, hasReceipt) VALUES (:name, :table_id, :total, :hasReceipt)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
         .addParameter("table_id", this.table_id)
         .addParameter("total", 0f)
+        .addParameter("hasReceipt", this.hasReceipt)
         .executeUpdate()
         .getKey();
     }

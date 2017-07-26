@@ -148,6 +148,12 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/aboutus", request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/aboutus.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     // post("/table/:id/delete", (request, response) -> {
     //   HashMap<String, Object> model = new HashMap<String, Object>();
     //   Table table = Table.find(Integer.parseInt(request.params("id")));

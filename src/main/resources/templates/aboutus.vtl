@@ -1,0 +1,16 @@
+<h1>About Us</h1>
+<p>Restaurant Management System was developed by the Epicodus team of Joe Kramer, Witty Chang, Lynn Pangelinan and Emilie Thoreson.</p>
+
+<h2>Database Setup:</h2>
+
+<ol>
+  <li>CREATE DATABASE restaurant_management_system;</li>
+  <li>\c restaurant_management_system;</li>
+  <li>CREATE TABLE customers (id serial PRIMARY KEY, table_id int, name varchar, total float, hasReceipt boolean);</li>
+  <li>CREATE TABLE meals (id serial PRIMARY KEY, name varchar, price float);</li>
+  <li>CREATE TABLE tables (id serial PRIMARY KEY, name varchar, guestcount int);</li>
+  <li>CREATE TABLE receipts (id serial PRIMARY KEY, meal_total float, tableid int, name varchar);</li>
+  <li>CREATE TABLE customers_meals (id serial PRIMARY KEY, customer_id int, meal_id int);</li>
+  <li>CREATE TABLE customers_receipts (id serial PRIMARY KEY, customer_id int, receipt_id int);</li>
+  <li>CREATE DATABASE restaurant_management_system_test WITH TEMPLATE restaurant_management_system;</li>
+</ol>
