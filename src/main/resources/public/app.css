@@ -38,6 +38,7 @@ h1, .playball {
   font-size: 55px;
 }
 
+
 h2, h4 {
   font-family: 'Playball', cursive;
   font-size: 35px;
@@ -59,4 +60,8 @@ h2, h4 {
   text-shadow: 1px 1px 2px black, 0 0 1em yellow, 0 0 0.2em yellow;
   color: white;
   font: 1.2em Georgia, serif;
+}
+
+.size-font {
+  font-size: 120%;
 }
