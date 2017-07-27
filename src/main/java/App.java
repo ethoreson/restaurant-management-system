@@ -130,8 +130,8 @@ public class App {
     post("/table/:table_id/splitCheck", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Table table = Table.find(Integer.parseInt(request.params("table_id")));
-      Customer customer = Customer.find(Integer.parseInt(request.queryParams("customerSelected")));
       try {
+        Customer customer = Customer.find(Integer.parseInt(request.queryParams("customerSelected")));
         Receipt receipt = Receipt.find(Integer.parseInt(request.queryParams("receiptSelected")));
         receipt.addCustomer(customer);
       } catch (NumberFormatException e) {

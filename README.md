@@ -1,6 +1,6 @@
 # Restaurant Management System
 
-#### _A Restaurant Management System that allows the manager to add/edit menu items, add table names and number of guests per table, order meals for each customer, calculate the total cost of the meal/s for each customer, and assign one or more bills to a customer.
+#### _A Restaurant Management System that allows the manager to add/edit menu items, add table names and number of guests per table, order meals for each customer, calculate the total cost of the meal/s for each customer, and assign one or more bills to a customer._
 
 #### By _**Joe Kramer, Esvethlynna Pangelinan, Emilie Thoreson, and Witty Chang**_
 
@@ -72,6 +72,7 @@ In PSQL:
 * _CREATE DATABASE restaurant_management_system_test WITH TEMPLATE restaurant_management_system;_
 
 In your terminal:
+* To already have menu items available in your database, type `$ psql restaurant_management_system < media.sql;`
 * `$ gradle run` to run the application;
 * Navigate to http://localhost:4567 in a web browser of your choice.
 
