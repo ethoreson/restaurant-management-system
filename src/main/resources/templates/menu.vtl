@@ -1,8 +1,8 @@
 <h1>Menu</h1>
 <ul>
   #foreach ($item in $menu)
-
-    <li class="yellow"><a href="/menu/$item.getId()">$item.getName() - &#36; $item.displayTwoDecimals()</a></li>
+    <li class="menu-item"><a href="/menu/$item.getId()">$item.getName() - &#36; $item.displayTwoDecimals()</a></li>
+    <br>
   #end
 </ul>
 

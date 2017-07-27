@@ -48,8 +48,15 @@ h2, h4 {
   color: white;
   font: 1.5em Georgia, serif;
 }
+
 .white-red {
   text-shadow: 1px 1px 2px black, 0 0 1em red, 0 0 0.2em red;
   color: white;
   font: 1.5em Georgia, serif;
+}
+
+.menu-item {
+  text-shadow: 1px 1px 2px black, 0 0 1em yellow, 0 0 0.2em yellow;
+  color: white;
+  font: 1.2em Georgia, serif;
 }
